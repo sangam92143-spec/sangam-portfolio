@@ -1,0 +1,46 @@
+﻿# Secrets and Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backups & Scratch Files
+.backup_*
+*.bak*
+scratch/
+*.png
+
+# Root test/scratch scripts
+build_component.js
+capture_preview.js
+check_mjs_imports.js
+create_preview.js
+extract_css.js
+find_headings.js
+find_icon_svgs.js
+find_longform_end.js
+find_stats_icons.js
+find_who_we_are_css.js
+inspect_longform.js
+inspect_process.js
+inspect_sections.js
+scratch_test_suite.js
+scratch_who_we_are.html
+test_acceptance_suite_browser.js
+test_comprehensive_architecture.js
+test_who_i_am_preview.html
+who_we_are_extracted.css
+inline_scripts.json
+links.json
+
+# Operating System Files
+.DS_Store
+Thumbs.db

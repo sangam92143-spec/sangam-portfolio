@@ -1,0 +1,105 @@
+[
+  {
+    "id": "BK-MTLDP4Z2-XJY8",
+    "name": "Test Creator",
+    "email": "creator@test.com",
+    "date": "2026-09-15",
+    "time": "10:00 AM",
+    "timezone": "Asia/Kolkata",
+    "goals": "Scaling YouTube & Instagram reels",
+    "meetingLink": "https://meet.google.com/sngm-cut-jn1",
+    "createdAt": "2026-09-03T10:24:55.406Z"
+  },
+  {
+    "id": "BK-MTLE19L5-DU8E",
+    "name": "Browser Automated Tester",
+    "email": "browser.tester@example.com",
+    "date": "2026-09-03",
+    "time": "9:00 AM",
+    "timezone": "Asia/Calcutta",
+    "goals": "Automated end-to-end booking verification test",
+    "meetingLink": "https://meet.google.com/sngm-cut-omq",
+    "createdAt": "2026-09-03T10:34:21.257Z"
+  },
+  {
+    "id": "BK-MTMNWOUM-SVJI",
+    "name": "Sanity Check User",
+    "email": "sanity.check@example.com",
+    "date": "2026-09-06",
+    "time": "9:00 AM",
+    "timezone": "Asia/Kolkata",
+    "goals": "Testing calendar booking functionality",
+    "meetingLink": "https://meet.google.com/sngm-cut-hgf",
+    "createdAt": "2026-09-04T07:58:30.094Z"
+  },
+  {
+    "id": "BK-MTMNWVP6-FEGB",
+    "name": "Shivam Verified Client",
+    "email": "client.verified@example.com",
+    "date": "2026-09-04",
+    "time": "9:00 AM",
+    "timezone": "Asia/Calcutta",
+    "goals": "",
+    "meetingLink": "https://meet.google.com/sngm-cut-3v6",
+    "createdAt": "2026-09-04T07:58:38.970Z"
+  },
+  {
+    "id": "BK-MTMOI6PN-BO6G",
+    "name": "8t",
+    "email": "sangam92143@gmail.com",
+    "date": "2026-09-17",
+    "time": "10:00 AM",
+    "timezone": "Asia/Calcutta",
+    "goals": "jk; | Channel: j",
+    "meetingLink": "https://meet.google.com/sngm-cut-xf1",
+    "createdAt": "2026-09-04T08:15:13.019Z"
+  },
+  {
+    "id": "BK-MTMOKASI-1781",
+    "name": "Link Verification Tester",
+    "email": "tester@example.com",
+    "date": "2026-09-18",
+    "time": "11:00 AM",
+    "timezone": "Asia/Kolkata",
+    "goals": "Verifying Google Calendar invite link and meeting room",
+    "meetingLink": "https://cal.com/sangam-singh/30min",
+    "calendarInviteLink": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=30%20Min%20Video%20Strategy%20Session%20-%20Sangam%20Singh&dates=20260918T053000Z/20260918T060000Z&details=Strategy%20session%20with%20Sangam%20Singh.%0AAttendee%3A%20Link%20Verification%20Tester%20(tester%40example.com)%0AGoals%3A%20Verifying%20Google%20Calendar%20invite%20link%20and%20meeting%20room%0A%0AMeeting%20Link%3A%20https%3A%2F%2Fcal.com%2Fsangam-singh/30min&location=Google%20Meet%20%2F%20Video%20Call",
+    "createdAt": "2026-09-04T08:16:51.620Z"
+  },
+  {
+    "id": "BK-MTMOKMDR-CGO9",
+    "name": "Browser Automated Tester",
+    "email": "browser.tester@example.com",
+    "date": "2026-09-04",
+    "time": "9:30 AM",
+    "timezone": "Asia/Calcutta",
+    "goals": "Automated end-to-end booking verification test",
+    "meetingLink": "https://cal.com/sangam-singh/30min",
+    "calendarInviteLink": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=30%20Min%20Video%20Strategy%20Session%20-%20Sangam%20Singh&dates=20260904T040000Z/20260904T043000Z&details=Strategy%20session%20with%20Sangam%20Singh.%0AAttendee%3A%20Browser%20Automated%20Tester%20(browser.tester%40example.com)%0AGoals%3A%20Automated%20end-to-end%20booking%20verification%20test%0A%0AMeeting%20Link%3A%20https%3A%2F%2Fcal.com%2Fsangam-singh/30min&location=Google%20Meet%20%2F%20Video%20Call",
+    "createdAt": "2026-09-04T08:17:06.639Z"
+  },
+  {
+    "id": "BK-MTMOLSVK-0LID",
+    "name": "8t",
+    "email": "visioneditstudios1@gmail.com",
+    "date": "2026-09-04",
+    "time": "10:00 AM",
+    "timezone": "Asia/Calcutta",
+    "goals": "k | Channel: gk",
+    "meetingLink": "https://cal.com/sangam-singh/30min",
+    "calendarInviteLink": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=30%20Min%20Video%20Strategy%20Session%20-%20Sangam%20Singh&dates=20260904T043000Z/20260904T050000Z&details=Strategy%20session%20with%20Sangam%20Singh.%0AAttendee%3A%208t%20(visioneditstudios1%40gmail.com)%0AGoals%3A%20k%20%7C%20Channel%3A%20gk%0A%0AMeeting%20Link%3A%20https%3A%2F%2Fcal.com%2Fsangam-singh/30min&location=Google%20Meet%20%2F%20Video%20Call",
+    "createdAt": "2026-09-04T08:18:01.712Z"
+  },
+  {
+    "id": "BK-MTMOMJ2T-ZYD0",
+    "name": "sasds",
+    "email": "sangam92143@gmail.com",
+    "date": "2026-09-04",
+    "time": "10:30 AM",
+    "timezone": "Asia/Calcutta",
+    "goals": "w | Channel: s",
+    "meetingLink": "https://cal.com/sangam-singh/30min",
+    "calendarInviteLink": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=30%20Min%20Video%20Strategy%20Session%20-%20Sangam%20Singh&dates=20260904T050000Z/20260904T053000Z&details=Strategy%20session%20with%20Sangam%20Singh.%0AAttendee%3A%20sasds%20(sangam92143%40gmail.com)%0AGoals%3A%20w%20%7C%20Channel%3A%20s%0A%0AMeeting%20Link%3A%20https%3A%2F%2Fcal.com%2Fsangam-singh/30min&location=Google%20Meet%20%2F%20Video%20Call",
+    "createdAt": "2026-09-04T08:18:35.669Z"
+  }
+]
