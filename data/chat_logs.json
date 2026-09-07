@@ -1762,5 +1762,54 @@
     "user": "okay",
     "assistant": "Great! Is there anything else I can assist you with today, perhaps about Sangam's services or how to book a strategy call?",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1OXWG-VOEM",
+    "timestamp": "2026-09-07T09:35:27.904Z",
+    "user": "hey",
+    "assistant": "Sorry, I’m having trouble connecting right now. Please try again.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1P3B6-Q8WO",
+    "timestamp": "2026-09-07T09:35:34.914Z",
+    "user": "sd",
+    "assistant": "I'm not sure I understand. Could you please clarify what you mean by \"sd\"? I'm here to help with any questions you have about Sangam Singh's services or anything else you'd like to discuss.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1P4JU-J93W",
+    "timestamp": "2026-09-07T09:35:36.522Z",
+    "user": ";;;;",
+    "assistant": "Sorry, I’m having trouble connecting right now. Please try again.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1P86T-ZTEE",
+    "timestamp": "2026-09-07T09:35:41.237Z",
+    "user": "What services do you offer?",
+    "assistant": "Sangam Singh offers a range of creative and technical services.\n\n1.  **AI Automation & Content Systems:** This involves building autonomous AI agents, automated video repurposing pipelines, media workflows, and intelligent creator tools.\n2.  **Short-Form Video Production:** He specializes in viral Reels, TikToks, and YouTube Shorts, engineered for high hook retention and dynamic pacing.\n3.  **Long-Form Video Production:** This covers end-to-end YouTube essays, podcasts, and documentaries.\n4.  **Motion Graphics:** Custom 2D/3D animations, UI animations, and title cards are created using Premiere Pro, After Effects, and DaVinci Resolve.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1PFXS-ZON5",
+    "timestamp": "2026-09-07T09:35:51.280Z",
+    "user": "How much do you charge?",
+    "assistant": "For short-form video production like Reels, TikToks, and YouTube Shorts, the starting range is around $30–$50 per video. These typically have a 24–48 hour turnaround.\n\nFor long-form video production, such as YouTube essays, podcasts, and documentaries, the turnaround is generally 3–5 business days.\n\nFor a precise quote tailored to your specific project, it's best to book a 30-minute strategy call with Sangam. You can do that at https://cal.com/sangam-singh/30min.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1PN2O-4LD4",
+    "timestamp": "2026-09-07T09:36:00.528Z",
+    "user": "oh",
+    "assistant": "Is there anything else I can tell you about the services, or perhaps you'd like to know more about how Sangam's AI automation expertise could benefit your content strategy?",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTR1PTUD-QZKE",
+    "timestamp": "2026-09-07T09:36:09.301Z",
+    "user": "hi'",
+    "assistant": "Hello! How can I assist you today?",
+    "ip": "127.0.0.1"
   }
 ]
