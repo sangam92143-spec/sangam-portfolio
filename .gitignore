@@ -1,4 +1,4 @@
-﻿# Secrets and Environment Variables
+# Secrets and Environment Variables
 .env
 .env.local
 .env.*.local
@@ -16,7 +16,8 @@ yarn-error.log*
 .backup_*
 *.bak*
 scratch/
-*.png
+/*.png
+!public/assets/**
 
 # Root test/scratch scripts
 build_component.js

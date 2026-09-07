@@ -1049,14 +1049,32 @@
 
 <style data-clean-precision-alignment>
   /* ========================================================= */
-  /* 1. HERO SECTION - HORIZONTAL BUTTONS & PERFECT ALIGNMENT  */
+  /* 1. HERO SECTION - TOP ALIGNED & PERFECT VIEWPORT SCALING  */
   /* ========================================================= */
+  .framer-12jsqv5 {
+    min-height: 100vh !important;
+    height: auto !important;
+    place-content: flex-start center !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    padding-top: 150px !important;
+  }
+
+  @media (max-width: 809px) {
+    .framer-12jsqv5 {
+      padding-top: 115px !important;
+      padding-bottom: 50px !important;
+      min-height: auto !important;
+    }
+  }
+
   [data-framer-name="Hero section"] [data-framer-name="CTA"],
   .framer-1tugo5b [data-framer-name="CTA"],
   [data-framer-name="Hero section"] .framer-1ywhqch,
   .framer-1ywhqch {
     display: flex !important;
     flex-direction: row !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 12px !important;
@@ -1075,7 +1093,7 @@
   }
 
   /* ========================================================= */
-  /* 2. FOOTER LEFT BRAND - FLUSH LEFT ALIGNMENT               */
+  /* 2. FOOTER - CLEAN DESKTOP & MOBILE RESPONSIVENESS         */
   /* ========================================================= */
   footer [data-framer-name="Left section"],
   footer .framer-1r6sw1n {
@@ -1097,6 +1115,8 @@
     gap: 4px !important;
     width: auto !important;
     position: relative !important;
+    padding: 0 !important;
+    height: auto !important;
   }
 
   footer [data-framer-name="Logo"],
@@ -1106,6 +1126,7 @@
     position: static !important;
     text-align: left !important;
     width: auto !important;
+    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -1120,6 +1141,7 @@
     text-align: left !important;
     transform: none !important;
     width: auto !important;
+    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -1147,6 +1169,7 @@
     top: 0 !important;
     text-align: left !important;
     width: auto !important;
+    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -1164,6 +1187,93 @@
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
+  }
+
+  @media (min-width: 810px) {
+    .framer-diqy4o-container .framer-cv3g46 {
+      padding-right: 220px !important;
+      box-sizing: border-box !important;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .framer-ynm0sg-container {
+      height: auto !important;
+      min-height: fit-content !important;
+      overflow: visible !important;
+    }
+
+    footer.framer-v-vasdcq,
+    footer[data-framer-name="Mobile"] {
+      height: auto !important;
+      min-height: fit-content !important;
+      padding: 40px 24px 30px 24px !important;
+      box-sizing: border-box !important;
+      overflow: visible !important;
+    }
+
+    footer.framer-v-vasdcq .framer-1e86zuq,
+    footer[data-framer-name="Mobile"] .framer-1e86zuq {
+      height: auto !important;
+      gap: 30px !important;
+    }
+
+    footer.framer-v-vasdcq [data-framer-name="Left section"],
+    footer[data-framer-name="Mobile"] [data-framer-name="Left section"] {
+      height: auto !important;
+    }
+
+    footer.framer-v-vasdcq [data-framer-name="Right section"],
+    footer[data-framer-name="Mobile"] [data-framer-name="Right section"] {
+      height: auto !important;
+      margin-bottom: 20px !important;
+    }
+
+    .framer-diqy4o-container {
+      height: auto !important;
+      position: relative !important;
+      clear: both !important;
+      margin-top: 15px !important;
+    }
+
+    footer.framer-v-1ht9hyc,
+    footer.framer-v-1w3sw9z,
+    .framer-diqy4o-container footer {
+      padding: 20px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 10px !important;
+      box-sizing: border-box !important;
+      height: auto !important;
+    }
+
+    .framer-cv3g46 {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+    }
+
+    .framer-se2ng1,
+    .framer-1cosqh5 {
+      width: 100% !important;
+      text-align: center !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      margin: 0 !important;
+    }
+
+    .framer-se2ng1 p,
+    .framer-1cosqh5 p {
+      text-align: center !important;
+      --framer-text-alignment: center !important;
+      font-size: 13px !important;
+    }
   }
 
   /* ========================================================= */
@@ -1189,7 +1299,22 @@
     text-align: left !important;
   }
 
-  </style>
+  /* ========================================================= */
+  /* 4. TRUST MARQUEE MOBILE ADAPTATION                        */
+  /* ========================================================= */
+  @media (max-width: 600px) {
+    .custom-trust-marquee-container {
+      margin: 15px auto 25px auto !important;
+    }
+    .trust-avatar-pill {
+      width: 68px !important;
+      height: 68px !important;
+    }
+    .custom-trust-marquee-track {
+      gap: 20px !important;
+    }
+  }
+</style>
 
 
 
@@ -1257,48 +1382,6 @@ a[href*="framer.com"] {
 <style data-remove-instagram>.framer-128kjvl, a[href*="instagram.com"] { display: none !important; }
 </style>
 <link rel="stylesheet" href="/public/chatbot.css">
-
-<style id="framer-visibility-guarantee">
-  /* Force Hero headline words, subheading, and sections to be 100% visible immediately without waiting for JS */
-  .framer-12jsqv5 h1 span,
-  .framer-187ailk h1 span,
-  [data-framer-name="Heading and subheading"] h1 span,
-  .framer-18epya1 p span,
-  .framer-18epya1 p,
-  .subhead-word,
-  [data-framer-appear-id] {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    visibility: visible !important;
-  }
-
-  .framer-12jsqv5 h1 span,
-  .framer-187ailk h1 span,
-  [data-framer-name="Heading and subheading"] h1 span {
-    color: #ffffff !important;
-    display: inline-block !important;
-  }
-
-  .subhead-word,
-  .framer-18epya1 p,
-  .framer-18epya1 p span {
-    color: #ffffffbf !important;
-  }
-
-  /* Universal container centering & max width */
-  #main,
-  .framer-suzJm,
-  .framer-1kjwutx {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    box-sizing: border-box !important;
-  }
-</style>
-
 </head>
 <body>
 	<script async src="https://events.framer.com/script?v=2" data-fid="eacb3f7b6a88327865a20e71b206202e25f0b1d35261dc0786d8caebe7362127" data-no-nt></script>
