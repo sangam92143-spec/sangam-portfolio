@@ -1339,6 +1339,7 @@ a[href*="framer.com"] {
 </style>
 <link rel="stylesheet" href="/public/chatbot.css">
 
+
 <style id="who-i-am-and-subheadings-styles">
   /* Long-Form Subheading */
   .longform-subheading-text {
@@ -1382,6 +1383,46 @@ a[href*="framer.com"] {
       padding: 64px 24px;
     }
   }
+
+  /* ENTRANCE / APPEARANCE ANIMATIONS */
+  .who-i-am-header {
+    opacity: 0;
+    transform: translateY(45px);
+    will-change: transform, opacity;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .who-i-am-card {
+    opacity: 0;
+    transform: translateY(50px);
+    will-change: transform, opacity;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* When scrolled into view (.is-visible added) */
+  #who-i-am.is-visible .who-i-am-header {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  #who-i-am.is-visible .who-i-am-card-1 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition-delay: 0.15s;
+  }
+
+  #who-i-am.is-visible .who-i-am-card-2 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition-delay: 0.3s;
+  }
+
+  #who-i-am.is-visible .who-i-am-card-3 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition-delay: 0.45s;
+  }
+
   .framer-10r3u1d .framer-1rsxwqi {
     flex-flow: column;
     flex: none;
@@ -1631,6 +1672,7 @@ a[href*="framer.com"] {
   }
 </style>
 
+
 </head>
 <body>
 	<script async src="https://events.framer.com/script?v=2" data-fid="eacb3f7b6a88327865a20e71b206202e25f0b1d35261dc0786d8caebe7362127" data-no-nt></script>
@@ -1669,8 +1711,8 @@ a[href*="framer.com"] {
 <!-- ========================================== -->
 <!-- WHO I AM SECTION (AFTER LONG FORM)         -->
 <!-- ========================================== -->
-<section class="framer-10r3u1d" data-framer-name="Who we are" id="who-i-am">
-  <div class="framer-1rsxwqi" data-framer-name="Header">
+<section class="framer-10r3u1d who-i-am-section" data-framer-name="Who we are" id="who-i-am">
+  <div class="framer-1rsxwqi who-i-am-header" data-framer-name="Header">
     <div class="ssr-variant">
       <div class="framer-1eyqu72-container">
         <div class="framer-V5EfO framer-4el2p framer-1fiq0w framer-v-1fiq0w" data-border="true" data-framer-name="Badge">
@@ -1689,9 +1731,9 @@ a[href*="framer.com"] {
       </div>
     </div>
   </div>
-  <div class="framer-1tun34u" data-framer-name="Stats grid">
+  <div class="framer-1tun34u who-i-am-grid" data-framer-name="Stats grid">
     <!-- Card 1: 90M+ Views Generated -->
-    <div class="ssr-variant">
+    <div class="ssr-variant who-i-am-card who-i-am-card-1">
       <div class="framer-t2szz1-container">
         <div class="framer-dgAZw framer-ITYqi framer-AIo2h framer-p8pqem framer-v-p8pqem" data-border="true" data-framer-name="Stats">
           <div class="framer-19i0rpr" data-framer-name="Icon and number">
@@ -1705,7 +1747,7 @@ a[href*="framer.com"] {
               </div>
             </div>
             <div class="framer-ttuciy" data-framer-component-type="RichTextContainer">
-              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="90" data-suffix="M+">90M+</span> Views Generated</p>
+              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="90" data-suffix="M+">0M+</span> Views Generated</p>
             </div>
           </div>
           <div class="framer-6q0jiy" data-framer-name="Description">
@@ -1717,7 +1759,7 @@ a[href*="framer.com"] {
       </div>
     </div>
     <!-- Card 2: Faster Turnarounds -->
-    <div class="ssr-variant">
+    <div class="ssr-variant who-i-am-card who-i-am-card-2">
       <div class="framer-1z06fm4-container">
         <div class="framer-dgAZw framer-ITYqi framer-AIo2h framer-p8pqem framer-v-p8pqem" data-border="true" data-framer-name="Stats">
           <div class="framer-19i0rpr" data-framer-name="Icon and number">
@@ -1742,7 +1784,7 @@ a[href*="framer.com"] {
       </div>
     </div>
     <!-- Card 3: 600+ Videos Delivered -->
-    <div class="ssr-variant">
+    <div class="ssr-variant who-i-am-card who-i-am-card-3">
       <div class="framer-17vlrfn-container">
         <div class="framer-dgAZw framer-ITYqi framer-AIo2h framer-p8pqem framer-v-p8pqem" data-border="true" data-framer-name="Stats">
           <div class="framer-19i0rpr" data-framer-name="Icon and number">
@@ -1754,7 +1796,7 @@ a[href*="framer.com"] {
               </div>
             </div>
             <div class="framer-ttuciy" data-framer-component-type="RichTextContainer">
-              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="600" data-suffix="+">600+</span> Videos Delivered</p>
+              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="600" data-suffix="+">0+</span> Videos Delivered</p>
             </div>
           </div>
           <div class="framer-6q0jiy" data-framer-name="Description">
@@ -2741,8 +2783,8 @@ a[href*="framer.com"] {
 <!-- ========================================== -->
 <!-- WHO I AM SECTION (AFTER LONG FORM)         -->
 <!-- ========================================== -->
-<section class="framer-10r3u1d" data-framer-name="Who we are" id="who-i-am">
-  <div class="framer-1rsxwqi" data-framer-name="Header">
+<section class="framer-10r3u1d who-i-am-section" data-framer-name="Who we are" id="who-i-am">
+  <div class="framer-1rsxwqi who-i-am-header" data-framer-name="Header">
     <div class="ssr-variant">
       <div class="framer-1eyqu72-container">
         <div class="framer-V5EfO framer-4el2p framer-1fiq0w framer-v-1fiq0w" data-border="true" data-framer-name="Badge">
@@ -2761,9 +2803,9 @@ a[href*="framer.com"] {
       </div>
     </div>
   </div>
-  <div class="framer-1tun34u" data-framer-name="Stats grid">
+  <div class="framer-1tun34u who-i-am-grid" data-framer-name="Stats grid">
     <!-- Card 1: 90M+ Views Generated -->
-    <div class="ssr-variant">
+    <div class="ssr-variant who-i-am-card who-i-am-card-1">
       <div class="framer-t2szz1-container">
         <div class="framer-dgAZw framer-ITYqi framer-AIo2h framer-p8pqem framer-v-p8pqem" data-border="true" data-framer-name="Stats">
           <div class="framer-19i0rpr" data-framer-name="Icon and number">
@@ -2777,7 +2819,7 @@ a[href*="framer.com"] {
               </div>
             </div>
             <div class="framer-ttuciy" data-framer-component-type="RichTextContainer">
-              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="90" data-suffix="M+">90M+</span> Views Generated</p>
+              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="90" data-suffix="M+">0M+</span> Views Generated</p>
             </div>
           </div>
           <div class="framer-6q0jiy" data-framer-name="Description">
@@ -2789,7 +2831,7 @@ a[href*="framer.com"] {
       </div>
     </div>
     <!-- Card 2: Faster Turnarounds -->
-    <div class="ssr-variant">
+    <div class="ssr-variant who-i-am-card who-i-am-card-2">
       <div class="framer-1z06fm4-container">
         <div class="framer-dgAZw framer-ITYqi framer-AIo2h framer-p8pqem framer-v-p8pqem" data-border="true" data-framer-name="Stats">
           <div class="framer-19i0rpr" data-framer-name="Icon and number">
@@ -2814,7 +2856,7 @@ a[href*="framer.com"] {
       </div>
     </div>
     <!-- Card 3: 600+ Videos Delivered -->
-    <div class="ssr-variant">
+    <div class="ssr-variant who-i-am-card who-i-am-card-3">
       <div class="framer-17vlrfn-container">
         <div class="framer-dgAZw framer-ITYqi framer-AIo2h framer-p8pqem framer-v-p8pqem" data-border="true" data-framer-name="Stats">
           <div class="framer-19i0rpr" data-framer-name="Icon and number">
@@ -2826,7 +2868,7 @@ a[href*="framer.com"] {
               </div>
             </div>
             <div class="framer-ttuciy" data-framer-component-type="RichTextContainer">
-              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="600" data-suffix="+">600+</span> Videos Delivered</p>
+              <p class="framer-text framer-styles-preset-owv810" data-styles-preset="Ag1SUJs5E"><span class="stat-counter" data-target="600" data-suffix="+">0+</span> Videos Delivered</p>
             </div>
           </div>
           <div class="framer-6q0jiy" data-framer-name="Description">
@@ -2844,6 +2886,9 @@ a[href*="framer.com"] {
 
 <script data-portfolio-enhancements-controller>
 (function() {
+  if (window.__portfolioEnhancementsInitialized) return;
+  window.__portfolioEnhancementsInitialized = true;
+
   // 1. Long-Form Subheading Guardian
   function ensureLongFormSubheading() {
     var lfHeader = document.querySelector('.framer-1x2gse0');
@@ -2857,7 +2902,7 @@ a[href*="framer.com"] {
     }
   }
 
-  // 2. Who I Am Section Guardian (Placed after Long-Form, before Testimonials)
+  // 2. Who I Am Section Placement Guardian
   function ensureWhoIAmSection() {
     var section = document.getElementById('who-i-am');
     var testimonials = document.querySelector('[data-framer-name="Testimonials"]');
@@ -2871,18 +2916,35 @@ a[href*="framer.com"] {
       if (template) {
         var clone = template.content.cloneNode(true);
         testimonials.parentNode.insertBefore(clone, testimonials);
-        initCounterObserver();
       }
     }
   }
 
-  // 3. Counter Number Animation
-  var hasAnimated = false;
-  function animateCounters() {
-    if (hasAnimated) return;
-    hasAnimated = true;
+  // 3. Appearing Animation & Number Counter Controller
+  var hasTriggeredAppearance = false;
 
-    var counters = document.querySelectorAll('.stat-counter');
+  function triggerAppearanceAndCounters() {
+    if (hasTriggeredAppearance) return;
+    
+    var section = document.getElementById('who-i-am');
+    if (!section) return;
+
+    // Check if section is actually near/in viewport (prevent premature trigger at scroll 0 during hydration)
+    var rect = section.getBoundingClientRect();
+    var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    
+    // Only trigger when the top of the section enters within 85% of window height
+    if (rect.top > windowHeight * 0.88) {
+      return; // Not in view yet!
+    }
+
+    hasTriggeredAppearance = true;
+    
+    // Trigger CSS entrance animation (fade up + stagger cards)
+    section.classList.add('is-visible');
+
+    // Trigger Number Counter Animation
+    var counters = section.querySelectorAll('.stat-counter');
     counters.forEach(function(counter) {
       var target = parseInt(counter.getAttribute('data-target'), 10);
       var suffix = counter.getAttribute('data-suffix') || '';
@@ -2909,29 +2971,32 @@ a[href*="framer.com"] {
     });
   }
 
-  function initCounterObserver() {
+  function handleScrollCheck() {
+    if (hasTriggeredAppearance) return;
+    triggerAppearanceAndCounters();
+  }
+
+  function setupObserver() {
     var section = document.getElementById('who-i-am');
     if (!section) return;
 
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            animateCounters();
-            observer.disconnect();
+          if (entry.isIntersecting && !hasTriggeredAppearance) {
+            triggerAppearanceAndCounters();
           }
         });
-      }, { threshold: 0.25 });
+      }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
       observer.observe(section);
-    } else {
-      animateCounters();
     }
   }
 
   function runAll() {
     ensureLongFormSubheading();
     ensureWhoIAmSection();
-    initCounterObserver();
+    setupObserver();
+    handleScrollCheck();
   }
 
   if (document.readyState === 'loading') {
@@ -2940,11 +3005,13 @@ a[href*="framer.com"] {
     runAll();
   }
   window.addEventListener('load', runAll);
+  window.addEventListener('scroll', handleScrollCheck, { passive: true });
+  window.addEventListener('resize', handleScrollCheck, { passive: true });
 
   var mutationTimeout;
   var obs = new MutationObserver(function() {
     clearTimeout(mutationTimeout);
-    mutationTimeout = setTimeout(runAll, 50);
+    mutationTimeout = setTimeout(runAll, 40);
   });
   obs.observe(document.documentElement, { childList: true, subtree: true });
 })();
