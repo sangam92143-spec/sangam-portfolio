@@ -1,0 +1,5 @@
+server.js
+*.bak*
+.backup*
+scratch*
+test_*
