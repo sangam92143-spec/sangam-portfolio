@@ -1707,6 +1707,122 @@ a[href*="framer.com"] {
   }
 </style>
 
+
+<style id="bulletproof-fixes">
+  /* 1. Universal Layout and Centering */
+  html, body {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000000 !important;
+    overflow-x: hidden !important;
+  }
+
+  #main,
+  .framer-suzJm,
+  .framer-1kjwutx {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 2. GUARANTEED VISIBILITY FALLBACK */
+  /* Ensures no section or heading ever stays invisible (opacity 0 / 0.001) */
+  [data-framer-appear-id],
+  .framer-12jsqv5,
+  .framer-12jsqv5 [data-framer-name="Heading and subheading"],
+  .framer-12jsqv5 h1,
+  .framer-12jsqv5 h1 span,
+  .framer-12jsqv5 p,
+  .framer-kotc5s,
+  .framer-1x2gse0,
+  .framer-1ja5f3k,
+  #who-i-am,
+  .framer-1f1fssz,
+  .framer-y7k2fs,
+  footer,
+  .framer-A2HDM {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* 3. Hero Heading Text Color & Placement */
+  .framer-12jsqv5 h1 span {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    transform: none !important;
+    display: inline-block !important;
+  }
+
+  /* 4. Section Sizing & Responsiveness across all viewports */
+  .framer-12jsqv5,
+  .framer-kotc5s,
+  .framer-1x2gse0,
+  .framer-1ja5f3k,
+  #who-i-am,
+  .framer-1f1fssz,
+  .framer-y7k2fs,
+  footer,
+  .framer-A2HDM {
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Responsive padding adjustments */
+  @media (max-width: 1200px) {
+    .framer-12jsqv5,
+    .framer-kotc5s,
+    .framer-1x2gse0,
+    .framer-1ja5f3k,
+    #who-i-am,
+    .framer-1f1fssz,
+    .framer-y7k2fs,
+    footer {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .framer-12jsqv5,
+    .framer-kotc5s,
+    .framer-1x2gse0,
+    .framer-1ja5f3k,
+    #who-i-am,
+    .framer-1f1fssz,
+    .framer-y7k2fs,
+    footer {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+  }
+
+  /* Ensure Smooth Scroll and Navbar Clearance */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+  }
+
+  /* Floating Navbar Responsive Max-Width */
+  .floating-glass-nav {
+    max-width: 1160px !important;
+    width: calc(100% - 40px) !important;
+  }
+  @media (max-width: 768px) {
+    .floating-glass-nav {
+      width: calc(100% - 24px) !important;
+    }
+  }
+</style>
+
 </head>
 <body>
 	<script async src="https://events.framer.com/script?v=2" data-fid="eacb3f7b6a88327865a20e71b206202e25f0b1d35261dc0786d8caebe7362127" data-no-nt></script>
@@ -2036,8 +2152,7 @@ a[href*="framer.com"] {
   }
   window.addEventListener('load', syncTrustAndTestimonials);
 
-  var obs = new MutationObserver(syncTrustAndTestimonials);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
+  // MutationObserver removed to prevent React hydration collisions
 })();
 </script>
 
@@ -2094,8 +2209,7 @@ a[href*="framer.com"] {
   }
   window.addEventListener('load', mountFaqs);
 
-  var obs = new MutationObserver(mountFaqs);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
+  // MutationObserver removed to prevent React hydration collisions
 })();
 </script>
 
@@ -2664,8 +2778,7 @@ a[href*="framer.com"] {
   }
   window.addEventListener('load', stripPersonalAvatars);
 
-  var obs = new MutationObserver(stripPersonalAvatars);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
+  // MutationObserver removed to prevent React hydration collisions
 })();
 </script>
 
@@ -2741,8 +2854,7 @@ a[href*="framer.com"] {
   }
   window.addEventListener('load', fixHeroAndFooter);
 
-  var obs = new MutationObserver(fixHeroAndFooter);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
+  // MutationObserver removed to prevent React hydration collisions
 })();
 </script>
 
@@ -2913,41 +3025,38 @@ a[href*="framer.com"] {
 </section>
 </template>
 
-<script data-who-i-am-controller>
-(function() {
-  function ensureWhoIAmSection() {
-    var section = document.getElementById('who-i-am');
-    var testimonials = document.querySelector('[data-framer-name="Testimonials"]');
-    var processSec = document.getElementById('process') || document.querySelector('[data-framer-name="Process"]');
 
-    if (section && testimonials) {
-      if (section.nextElementSibling !== testimonials) {
-        testimonials.parentNode.insertBefore(section, testimonials);
-      }
-    } else if (!section && testimonials) {
-      var template = document.getElementById('who-i-am-template');
-      if (template) {
-        var clone = template.content.cloneNode(true);
-        testimonials.parentNode.insertBefore(clone, testimonials);
-      }
+<script id="clean-who-i-am-mounter">
+(function() {
+  function mountWhoIAm() {
+    if (document.getElementById('who-i-am')) return;
+    var testimonials = document.querySelector('[data-framer-name="Testimonials"]');
+    var template = document.getElementById('who-i-am-template');
+    if (testimonials && template) {
+      var clone = template.content.cloneNode(true);
+      testimonials.parentNode.insertBefore(clone, testimonials);
+      console.log('Successfully mounted Who I Am section before Testimonials!');
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ensureWhoIAmSection);
-  } else {
-    ensureWhoIAmSection();
-  }
-  window.addEventListener('load', ensureWhoIAmSection);
-  var obs = new MutationObserver(ensureWhoIAmSection);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
+  // Run on DOM ready, on load, and after short delays
+  if (document.readyState !== 'loading') mountWhoIAm();
+  document.addEventListener('DOMContentLoaded', mountWhoIAm);
+  window.addEventListener('load', function() {
+    mountWhoIAm();
+    setTimeout(mountWhoIAm, 300);
+    setTimeout(mountWhoIAm, 1000);
+    setTimeout(mountWhoIAm, 2500);
+  });
 })();
 </script>
 
 
-<script data-longform-subheading-controller>
+
+
+<script id="clean-longform-mounter">
 (function() {
-  function ensureLongFormSubheading() {
+  function mountLongFormSubheading() {
     var lfHeader = document.querySelector('.framer-1x2gse0');
     if (lfHeader && !lfHeader.querySelector('.longform-subheading-text')) {
       var sub = document.createElement('p');
@@ -2956,19 +3065,21 @@ a[href*="framer.com"] {
       sub.style.setProperty('text-align', 'center', 'important');
       sub.textContent = 'High-retention YouTube videos, podcasts, and brand documentaries engineered for maximum watch-time and audience growth.';
       lfHeader.appendChild(sub);
+      console.log('Successfully mounted Long-Form subheading!');
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ensureLongFormSubheading);
-  } else {
-    ensureLongFormSubheading();
-  }
-  window.addEventListener('load', ensureLongFormSubheading);
-  var obs = new MutationObserver(ensureLongFormSubheading);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
+  if (document.readyState !== 'loading') mountLongFormSubheading();
+  document.addEventListener('DOMContentLoaded', mountLongFormSubheading);
+  window.addEventListener('load', function() {
+    mountLongFormSubheading();
+    setTimeout(mountLongFormSubheading, 300);
+    setTimeout(mountLongFormSubheading, 1000);
+    setTimeout(mountLongFormSubheading, 2500);
+  });
 })();
 </script>
+
 
 </body>
 </html>
