@@ -1673,6 +1673,19 @@ a[href*="framer.com"] {
 </style>
 
 
+<style id="netlify-suppression">
+  /* Netlify Drawer & Watermark Suppression */
+  iframe[id*="netlify"],
+  div[id*="netlify"],
+  [data-netlify-drawer],
+  .netlify-feedback-drawer,
+  #netlify-drawer {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+</style>
 </head>
 <body>
 	<script async src="https://events.framer.com/script?v=2" data-fid="eacb3f7b6a88327865a20e71b206202e25f0b1d35261dc0786d8caebe7362127" data-no-nt></script>
