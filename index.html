@@ -1674,7 +1674,13 @@ a[href*="framer.com"] {
 
 
 <style id="netlify-suppression">
-  /* Netlify Drawer & Watermark Suppression */
+  /* Netlify Drawer & Badge Suppression */
+  #nl-badge-frame,
+  iframe#nl-badge-frame,
+  iframe[id*="nl-badge"],
+  [id*="nl-badge"],
+  [data-nf-variant],
+  iframe[src*="netlify"],
   iframe[id*="netlify"],
   div[id*="netlify"],
   [data-netlify-drawer],
@@ -1684,6 +1690,11 @@ a[href*="framer.com"] {
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    z-index: -9999 !important;
   }
 </style>
 </head>
