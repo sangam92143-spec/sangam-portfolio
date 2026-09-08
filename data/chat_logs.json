@@ -1881,5 +1881,33 @@
     "user": "go fuck",
     "assistant": "I'm an AI assistant designed to provide helpful and professional information about Sangam Singh's services. I cannot engage with that kind of language.\n\nIf you have any legitimate questions about video editing, AI automation, or motion graphics, I'm happy to assist.",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTSFSMR9-9LCS",
+    "timestamp": "2026-09-08T08:58:00.885Z",
+    "user": "Hi! My name is Jordan and I need 5 reels.",
+    "assistant": "Hello Jordan! Great to hear you're looking for 5 reels.\n\nSangam specializes in creating high-retention vertical reels, TikToks, and YouTube Shorts. For short-form videos like these, the typical turnaround is 24–48 hours, and the starting range is around $30–$50 per video.\n\nTo discuss your project in more detail and understand your specific needs for these 5 reels, I recommend booking a 30-minute strategy call with Sangam. You can schedule it directly here: https://cal.com/sangam-singh/30min.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTSFUDKS-OYN4",
+    "timestamp": "2026-09-08T08:59:22.300Z",
+    "user": "Hi! My name is Jordan and I need 5 reels.",
+    "assistant": "Hello Jordan! Great to hear you're looking for 5 reels.\n\nSangam specializes in creating viral Reels, TikToks, and YouTube Shorts designed for high hook retention and dynamic pacing. For short-form videos like these, the typical turnaround is 24–48 hours, and the starting range is around $30–$50 per video.\n\nWould you like to discuss your project further or perhaps book a 30-minute strategy call to go over the details? You can schedule one directly at https://cal.com/sangam-singh/30min.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTSFUGQN-XO3T",
+    "timestamp": "2026-09-08T08:59:26.399Z",
+    "user": "They are 30 sec each, Hormozi style. So how much?",
+    "assistant": "Thanks for clarifying, Jordan. For 5 reels, 30 seconds each, in the dynamic Hormozi style with high-energy hooks and captions, the estimated range would be between $150 and $250.\n\nThe turnaround for these 5 videos would typically be within 24–48 hours.\n\nFor a precise quote tailored to your specific content and to discuss the creative direction, I recommend booking a 30-minute strategy call with Sangam at https://cal.com/sangam-singh/30min.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MTSFUJUM-2PXD",
+    "timestamp": "2026-09-08T08:59:30.430Z",
+    "user": "What is the weather today?",
+    "assistant": "The current weather in Calcutta, India is 34°C (93°F) with a light rain shower. The humidity is 56%.",
+    "ip": "127.0.0.1"
   }
 ]
