@@ -295,35 +295,103 @@
     box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
   }
 
-  @media (max-width: 768px) {
-    .glass-nav-links {
-      display: none !important;
-    }
-    .glass-nav-mobile-toggle {
-      display: flex !important;
-    }
-    .glass-nav-mobile-drawer {
-      display: block;
+    @media (max-width: 768px) {
+    .floating-glass-nav-wrapper {
+      padding: 0 8px !important;
+      top: 14px !important;
     }
     .floating-glass-nav {
-      padding: 7px 10px 7px 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      max-width: 440px !important;
+      padding: 4px 5px 4px 14px !important;
+      border-radius: 9999px !important;
+      box-sizing: border-box !important;
+      gap: 4px !important;
     }
     .glass-nav-brand {
-      font-size: 16px !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.02em !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    .brand-surname {
+      display: none !important;
+    }
+    .glass-nav-links {
+      display: flex !important;
+      align-items: center !important;
+      gap: 2px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      flex-shrink: 0 !important;
+    }
+    .glass-nav-link {
+      font-size: 11.5px !important;
+      font-weight: 500 !important;
+      padding: 4px 6px !important;
+      white-space: nowrap !important;
+      color: rgba(255, 255, 255, 0.72) !important;
+      text-decoration: none !important;
+      border-radius: 999px !important;
+      transition: color 0.2s ease, background 0.2s ease !important;
+    }
+    .glass-nav-link.active, .glass-nav-link:hover {
+      color: #ffffff !important;
+    }
+    .glass-nav-link::after {
+      bottom: 1px !important;
+      height: 1.5px !important;
     }
     .glass-nav-cta {
-      padding: 7px 14px !important;
-      font-size: 12.5px !important;
+      padding: 5px 10px !important;
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      border-radius: 9999px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    .glass-nav-cta svg {
+      width: 9.5px !important;
+      height: 9.5px !important;
+    }
+    .glass-nav-mobile-toggle {
+      display: none !important;
+    }
+    .glass-nav-mobile-drawer {
+      display: none !important;
     }
   }
 
   @media (max-width: 360px) {
+    .floating-glass-nav {
+      padding: 4px 4px 4px 10px !important;
+      gap: 2px !important;
+    }
+    .glass-nav-brand {
+      font-size: 12px !important;
+    }
+    .glass-nav-link {
+      font-size: 10.5px !important;
+      padding: 3px 4px !important;
+    }
     .glass-nav-cta span {
-      display: none;
+      display: none !important;
     }
     .glass-nav-cta {
-      padding: 8px !important;
+      padding: 6px !important;
       border-radius: 50% !important;
+    }
+    .glass-nav-cta svg {
+      width: 10px !important;
+      height: 10px !important;
     }
   }
 
@@ -501,21 +569,7 @@
     pointer-events: none !important;
   }
 
-  @media (max-width: 768px) {
-    .glass-nav-links {
-      display: none;
-    }
-    .floating-glass-nav {
-      padding: 8px 8px 8px 18px;
-    }
-    .glass-nav-brand {
-      font-size: 16px;
-    }
-    .glass-nav-cta {
-      padding: 8px 16px;
-      font-size: 13px;
-    }
-  }
+  /* mobile styles unified above */
 </style>
 
 
@@ -1056,14 +1110,11 @@ a[href*="framer.com"] {
     navWrapper.className = 'floating-glass-nav-wrapper' + (isInitialEntry ? ' nav-initial-animate' : '');
     navWrapper.innerHTML = `
       <nav class="floating-glass-nav">
-        <a href="/" class="glass-nav-brand">Sangam Singh</a>
+        <a href="/" class="glass-nav-brand">Sangam<span class="brand-surname"> Singh</span></a>
         <div class="glass-nav-links">
           <a href="/" class="glass-nav-link ` + (isHome ? 'active' : '') + `" onclick="handleNavNavigation('home', event)">Home</a>
           <a href="/about" class="glass-nav-link ` + (isAbout ? 'active' : '') + `">About</a>
-          <a href="/?section=services" class="glass-nav-link" onclick="handleNavNavigation('services', event)">Services</a>
-          <a href="/?section=testimonials" class="glass-nav-link" onclick="handleNavNavigation('testimonials', event)">Testimonials</a>
           <a href="/contact" class="glass-nav-link ` + (isContact ? 'active' : '') + `">Contact</a>
-          <a href="/?section=faqs" class="glass-nav-link" onclick="handleNavNavigation('faqs', event)">FAQs</a>
         </div>
         <div style="display: flex; align-items: center;">
           <a href="https://cal.com/sangam-singh/30min" target="_blank" rel="noopener noreferrer" class="glass-nav-cta">
@@ -1089,20 +1140,8 @@ a[href*="framer.com"] {
             <span>About</span>
             <span style="opacity: 0.5;">&rarr;</span>
           </a>
-          <a href="/?section=services" class="glass-mobile-link" onclick="handleMobileNavClick('services', event)">
-            <span>Services</span>
-            <span style="opacity: 0.5;">&rarr;</span>
-          </a>
-          <a href="/?section=testimonials" class="glass-mobile-link" onclick="handleMobileNavClick('testimonials', event)">
-            <span>Testimonials</span>
-            <span style="opacity: 0.5;">&rarr;</span>
-          </a>
           <a href="/contact" class="glass-mobile-link ` + (isContact ? 'active' : '') + `" onclick="handleMobileNavClick('contact', event)">
             <span>Contact</span>
-            <span style="opacity: 0.5;">&rarr;</span>
-          </a>
-          <a href="/?section=faqs" class="glass-mobile-link" onclick="handleMobileNavClick('faqs', event)">
-            <span>FAQs</span>
             <span style="opacity: 0.5;">&rarr;</span>
           </a>
         </div>
@@ -1524,5 +1563,122 @@ a[href*="framer.com"] {
 </script>
 
 <script src="/public/chatbot.js" defer></script>
+
+<script id="contact-guardian">
+(function() {
+  function enforceSangamContact() {
+    // Only run if contact card elements or on /contact route
+    var isContactRoute = window.location.pathname.includes('/contact');
+    var emailCard = document.querySelector('[data-framer-name="Email"], .framer-15a1yuw, a[href*="mailto:"]');
+    var phoneCard = document.querySelector('[data-framer-name="Phone"], .framer-1n2439y, a[href*="tel:"], a[href*="wa.me"]');
+    
+    if (emailCard) {
+      var emailLink = "mailto:sangam.work9@gmail.com?subject=Project%20Inquiry%20-%20Video%20Editing&body=Hi%20Sangam,%0A%0AI%20loved%20your%20portfolio%20and%20I%20want%20to%20work%20with%20you!%0A%0ALooking%20forward%20to%20hearing%20from%20you.";
+      if (emailCard.getAttribute('href') !== emailLink) {
+        emailCard.setAttribute('href', emailLink);
+        emailCard.setAttribute('target', '_blank');
+        emailCard.setAttribute('rel', 'noopener noreferrer');
+      }
+      var emailText = emailCard.querySelector('[data-framer-name="Email address"] p, .framer-18ytxkw p');
+      if (emailText && emailText.textContent !== 'sangam.work9@gmail.com') {
+        emailText.textContent = 'sangam.work9@gmail.com';
+      }
+    }
+    
+    if (phoneCard) {
+      var waLink = "https://wa.me/916289928084?text=Hi%20Sangam%2C%20I%20loved%20your%20portfolio%20and%20I%20want%20to%20work%20with%20you%21";
+      if (phoneCard.getAttribute('href') !== waLink) {
+        phoneCard.setAttribute('href', waLink);
+        phoneCard.setAttribute('target', '_blank');
+        phoneCard.setAttribute('rel', 'noopener noreferrer');
+      }
+      var phoneText = phoneCard.querySelector('[data-framer-name="Number"] p, .framer-1orge6n p');
+      if (phoneText && phoneText.textContent !== '+91 6289928084') {
+        phoneText.textContent = '+91 6289928084';
+      }
+    }
+
+    // Input phone placeholder
+    var phoneInput = document.querySelector('input[type="tel"]');
+    if (phoneInput && phoneInput.placeholder.includes('819-8061')) {
+      phoneInput.placeholder = '+91 98765 43210';
+    }
+
+    // Email input placeholder
+    var emailInput = document.querySelector('input[type="email"]');
+    if (emailInput && emailInput.placeholder.includes('Jane@mail.com')) {
+      emailInput.placeholder = 'yourname@example.com';
+    }
+  }
+
+  // Intercept form submissions on contact page to route to WhatsApp
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var form = e.target;
+    var inputs = form.querySelectorAll('input, textarea');
+    var values = {};
+    inputs.forEach(function(inp) {
+      var placeholder = (inp.placeholder || '').toLowerCase();
+      var val = inp.value.trim();
+      if (placeholder.includes('jane') && !placeholder.includes('@') && !placeholder.includes('help')) {
+        values.firstName = val;
+      } else if (placeholder.includes('smith')) {
+        values.lastName = val;
+      } else if (placeholder.includes('@') || inp.type === 'email') {
+        values.email = val;
+      } else if (inp.type === 'tel' || placeholder.includes('+1') || placeholder.includes('+91')) {
+        values.phone = val;
+      } else if (inp.tagName === 'TEXTAREA' || placeholder.includes('help')) {
+        values.message = val;
+      }
+    });
+
+    var msgLines = ['*New Project Inquiry from Website Portfolio:*'];
+    if (values.firstName || values.lastName) {
+      msgLines.push('*Name:* ' + (values.firstName || '') + ' ' + (values.lastName || ''));
+    }
+    if (values.email) msgLines.push('*Email:* ' + values.email);
+    if (values.phone) msgLines.push('*Phone:* ' + values.phone);
+    if (values.message) msgLines.push('*Message:* ' + values.message);
+
+    var fullText = msgLines.join('\n');
+    var waUrl = 'https://wa.me/916289928084?text=' + encodeURIComponent(fullText);
+    window.open(waUrl, '_blank');
+  }
+
+  function attachFormListener() {
+    var forms = document.querySelectorAll('form.framer-qzjgoc, form');
+    forms.forEach(function(form) {
+      if (!form.dataset.waAttached) {
+        form.dataset.waAttached = 'true';
+        form.addEventListener('submit', handleFormSubmit);
+      }
+    });
+  }
+
+  // Run on DOM ready, load, and mutations
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      enforceSangamContact();
+      attachFormListener();
+    });
+  } else {
+    enforceSangamContact();
+    attachFormListener();
+  }
+  window.addEventListener('load', function() {
+    enforceSangamContact();
+    attachFormListener();
+  });
+
+  var observer = new MutationObserver(function() {
+    enforceSangamContact();
+    attachFormListener();
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>

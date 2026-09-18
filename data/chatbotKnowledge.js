@@ -61,7 +61,6 @@ const PORTFOLIO_KNOWLEDGE = {
   ],
 
   projects: [
-    { name: "SHOW REEL", type: "Portfolio Highlight Reel", description: "High-energy showcase of motion design, cinematic transitions, and storytelling craft." },
     { name: "Funding Pitch Video", type: "Investor / Startup", description: "Persuasive startup pitch video highlighting value propositions and metrics." },
     { name: "VSL EDIT", type: "Video Sales Letter", description: "Conversion-optimized sales video driving audience action with punchy pacing and visual proof." },
     { name: "NEAT & CLEAN EDIT", type: "Minimalist Brand Video", description: "Clean, elegant editing aesthetic emphasizing clarity, high-fidelity sound, and polish." },
@@ -111,7 +110,7 @@ const PORTFOLIO_KNOWLEDGE = {
     email: "sangam.work9@gmail.com",
     whatsapp: "+91 6289928084",
     twitter: "https://x.com/SangamSingh92",
-    linkedin: "https://www.linkedin.com/in/sangam-singh-9887b6430/"
+    linkedin: "https://www.linkedin.com/in/sangamkumarsingh"
   },
 
   faqs: [
