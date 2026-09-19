@@ -61,11 +61,12 @@ async function streamFallbackResponse(res, text, lastUserMessage, ip) {
 }
 
 /**
- * Resolve GEMINI_API_KEY from process environment or .env file dynamically
+ * Resolve Inception Labs API configuration dynamically
  */
-function getGeminiApiKey() {
-  if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY.trim();
-  if (process.env.GOOGLE_API_KEY) return process.env.GOOGLE_API_KEY.trim();
+function getInceptionConfig() {
+  let apiKey = process.env.INCEPTION_API_KEY || 'sk_4a0d8faba743dc2c98a8042e58f88285';
+  let baseUrl = process.env.INCEPTION_BASE_URL || 'https://api.inceptionlabs.ai/v1';
+  let model = process.env.INCEPTION_MODEL || 'mercury-2.5';
 
   const envPath = path.join(__dirname, '..', '.env');
   if (fs.existsSync(envPath)) {
@@ -79,19 +80,15 @@ function getGeminiApiKey() {
           const idx = trimmed.indexOf('=');
           const key = trimmed.substring(0, idx).trim();
           const val = trimmed.substring(idx + 1).trim().replace(/^['"]|['"]$/g, '');
-          if (key === 'GEMINI_API_KEY' || key === 'GOOGLE_API_KEY') {
-            process.env[key] = val;
-            return val;
-          }
-        } else if (trimmed.length > 20 && !trimmed.includes(' ')) {
-          // Raw API key placed directly in .env
-          process.env.GEMINI_API_KEY = trimmed;
-          return trimmed;
+          if (key === 'INCEPTION_API_KEY') apiKey = val;
+          if (key === 'INCEPTION_BASE_URL') baseUrl = val;
+          if (key === 'INCEPTION_MODEL') model = val;
         }
       }
     } catch (e) {}
   }
-  return null;
+
+  return { apiKey, baseUrl, model };
 }
 
 /**
@@ -154,22 +151,22 @@ async function handleChatStream(req, res, payload) {
     }
   }
 
-  const apiKey = getGeminiApiKey();
+  const { apiKey, baseUrl, model } = getInceptionConfig();
 
   // Temporary Server Debug Logging
   console.log('\n=================== [CHAT REQUEST PIPELINE] ===================');
   console.log(`[CHAT LOG] Received user message: "${lastUserMessage}"`);
-  console.log(`[CHAT LOG] Gemini API called: ${apiKey ? 'true' : 'false (Missing GEMINI_API_KEY in .env)'}`);
-  console.log(`[CHAT LOG] Gemini model used: gemini-2.5-flash`);
+  console.log(`[CHAT LOG] Inception API called: ${apiKey ? 'true' : 'false (Missing INCEPTION_API_KEY in .env)'}`);
+  console.log(`[CHAT LOG] Inception model used: ${model}`);
   console.log(`[CHAT LOG] Conversation history included: ${recentMessages.length > 1 ? 'true (turns=' + recentMessages.length + ')' : 'false (first turn)'}`);
   console.log(`[CHAT LOG] Website knowledge included: true`);
   console.log(`[CHAT LOG] Web search triggered: ${liveSearchResult ? 'true' : 'false'}`);
 
   const TECHNICAL_FALLBACK_TEXT = "Sorry, I’m having trouble connecting right now. Please try again.";
 
-  // If no Gemini API key is configured, return the clean technical fallback (NEVER canned FAQs)
+  // If no Inception API key is configured, return the clean technical fallback
   if (!apiKey) {
-    console.log('[CHAT LOG] Error: No GEMINI_API_KEY configured. Returning technical fallback.');
+    console.log('[CHAT LOG] Error: No INCEPTION_API_KEY configured. Returning technical fallback.');
     console.log(`[CHAT LOG] Response sent to client: "${TECHNICAL_FALLBACK_TEXT}"`);
     console.log('================================================================\n');
     await streamFallbackResponse(res, TECHNICAL_FALLBACK_TEXT, lastUserMessage, clientIp);
@@ -212,42 +209,40 @@ async function handleChatStream(req, res, payload) {
 
     const fullSystemPrompt = getSystemInstruction() + memoryBlock + summaryBlock + pageContextBlock + searchBlock;
 
-    // Convert recent messages to Gemini contents format
-    let contents = recentMessages.map(m => ({
-      role: m.role === 'assistant' || m.role === 'model' ? 'model' : 'user',
-      parts: [{ text: m.content || '' }]
-    }));
+    // Convert messages for Inception chat completions (OpenAI-compatible)
+    const messagesPayload = [
+      { role: 'system', content: fullSystemPrompt }
+    ];
 
-    // Gemini API requires first message to be user
-    while (contents.length > 0 && contents[0].role !== 'user') {
-      contents.shift();
-    }
-    if (contents.length === 0) {
-      contents = [{ role: 'user', parts: [{ text: lastUserMessage }] }];
+    for (const m of recentMessages) {
+      const role = m.role === 'assistant' || m.role === 'model' ? 'assistant' : 'user';
+      messagesPayload.push({
+        role: role,
+        content: m.content || ''
+      });
     }
 
-    const geminiPayload = {
-      systemInstruction: {
-        parts: [{ text: fullSystemPrompt }]
-      },
-      contents: contents,
-      generationConfig: {
-        temperature: 0.4,
-        maxOutputTokens: 800
-      }
+    const inceptionPayload = {
+      model: model,
+      messages: messagesPayload,
+      stream: true,
+      temperature: 0.4
     };
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
+    const apiUrl = `${baseUrl.replace(/\/+$/, '')}/chat/completions`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(geminiPayload)
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(inceptionPayload)
     });
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error(`[CHAT LOG] Gemini API Error: HTTP ${response.status}`, errText.substring(0, 300));
+      console.error(`[CHAT LOG] Inception API Error: HTTP ${response.status}`, errText.substring(0, 300));
       console.log(`[CHAT LOG] Returning technical fallback to client: "${TECHNICAL_FALLBACK_TEXT}"`);
       console.log('================================================================\n');
       await streamFallbackResponse(res, TECHNICAL_FALLBACK_TEXT, lastUserMessage, clientIp);
@@ -257,7 +252,7 @@ async function handleChatStream(req, res, payload) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
     let buffer = '';
-    let fullGeminiText = '';
+    let fullAssistantText = '';
 
     while (true) {
       const { done, value } = await reader.read();
@@ -270,14 +265,14 @@ async function handleChatStream(req, res, payload) {
       for (const line of lines) {
         const trimmed = line.trim();
         if (trimmed.startsWith('data: ')) {
-          const dataPayload = line.slice(6);
+          const dataPayload = trimmed.slice(6);
           if (dataPayload === '[DONE]') continue;
 
           try {
             const data = JSON.parse(dataPayload);
-            const textChunk = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            const textChunk = data.choices?.[0]?.delta?.content || '';
             if (textChunk) {
-              fullGeminiText += textChunk;
+              fullAssistantText += textChunk;
               res.write(`data: ${JSON.stringify({ text: textChunk })}\n\n`);
             }
           } catch (e) {}
@@ -288,9 +283,9 @@ async function handleChatStream(req, res, payload) {
     if (buffer.trim().startsWith('data: ')) {
       try {
         const data = JSON.parse(buffer.trim().slice(6));
-        const textChunk = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        const textChunk = data.choices?.[0]?.delta?.content || '';
         if (textChunk) {
-          fullGeminiText += textChunk;
+          fullAssistantText += textChunk;
           res.write(`data: ${JSON.stringify({ text: textChunk })}\n\n`);
         }
       } catch (e) {}
@@ -299,11 +294,11 @@ async function handleChatStream(req, res, payload) {
     res.write('data: [DONE]\n\n');
     res.end();
 
-    console.log(`[CHAT LOG] Gemini response received: "${fullGeminiText.substring(0, 120)}..."`);
+    console.log(`[CHAT LOG] Inception response received: "${fullAssistantText.substring(0, 120)}..."`);
     console.log('================================================================\n');
 
     // Persist turn
-    logConversationTurn(lastUserMessage, fullGeminiText, clientIp);
+    logConversationTurn(lastUserMessage, fullAssistantText, clientIp);
 
   } catch (err) {
     console.error(`[CHAT LOG] Execution error: ${err.message}`);

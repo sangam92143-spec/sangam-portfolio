@@ -548,7 +548,7 @@ async function resolveContextualResponse(messages, memory, pageContext = {}) {
   // 10. PORTFOLIO & WORK
   // ========================================================
   if (query.includes('portfolio') || query.includes('work') || query.includes('sample') || query.includes('showreel')) {
-    return "Featured portfolio work includes the **SHOW REEL**, **Funding Pitch Video**, **VSL Edit**, **UI Animation**, and 5 interactive viral reels on the homepage. Would you like short-form or long-form samples?";
+    return "Featured portfolio work includes the **Funding Pitch Video**, **VSL Edit**, **UI Animation**, and 5 interactive viral reels on the homepage. Would you like short-form or long-form samples?";
   }
 
   // ========================================================

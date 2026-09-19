@@ -25,27 +25,56 @@
   // DOM Elements
   var rootEl, triggerWrapper, triggerBtn, chatboxEl, messagesEl, inputEl, sendBtn, closeBtn, resetBtn, suggestionDockEl;
 
-  // Load conversation from persistent localStorage & sessionStorage
+  // Purge any previously stored history so chat always starts fresh from zero
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(STORAGE_KEY);
+  } catch (e) {}
+
+  var INCEPTION_CONFIG = {
+    baseUrl: 'https://api.inceptionlabs.ai/v1',
+    model: 'mercury-2.5',
+    apiKey: 'sk_4a0d8faba743dc2c98a8042e58f88285'
+  };
+
+  var INCEPTION_SYSTEM_PROMPT = [
+    "You are the AI Assistant for Sangam Singh's official website. You are a versatile, intelligent, and highly capable general-purpose AI assistant who represents Sangam Singh.",
+    "",
+    "ABOUT SANGAM SINGH:",
+    "Sangam Singh is a Creative Operator, Video Editor, Motion Graphics Designer, and AI Automation Specialist.",
+    "Capabilities & Focus:",
+    "1. AI Automation & Content Systems: Building autonomous AI agents, automated video repurposing pipelines, media workflows, and intelligent creator tools.",
+    "2. Short-Form Video Production: Viral Reels, TikToks, and YouTube Shorts engineered for high hook retention and dynamic pacing (24–48 hour turnaround, starting range around $30–$50).",
+    "3. Long-Form Video Production: End-to-end YouTube essays, podcasts, and documentaries (3–5 business days turnaround).",
+    "4. Motion Graphics: Custom 2D/3D animations, UI animations, and title cards using Premiere Pro, After Effects, and DaVinci Resolve.",
+    "Track Record: 90M+ Views Generated, 600+ Videos Delivered, 50+ businesses trust him.",
+    "Booking: 30-minute strategy call at https://cal.com/sangam-singh/30min.",
+    "Contact: sangam.work9@gmail.com, WhatsApp +91 6289928084, LinkedIn https://www.linkedin.com/in/sangamkumarsingh.",
+    "",
+    "HOW TO ANSWER VISITORS (GENERAL-PURPOSE ASSISTANT):",
+    "A visitor can ask you ANYTHING. Do NOT force every conversation into video editing questions.",
+    "1. AI Automation & Agents: If a visitor asks about AI automation or AI agents, answer knowledgeably, practically, and insightfully. Mention that Sangam designs and deploys AI automation systems and content pipelines for businesses and creators.",
+    "2. General Knowledge: If a visitor asks general questions, answer directly, accurately, and conversationally.",
+    "3. Programming & Code: If a visitor asks for code, provide clean, accurate, idiomatic code inside markdown code blocks.",
+    "4. Sangam's Business & Services: If a visitor asks about editing, pricing, turnaround, past work, or booking, answer based on the portfolio knowledge ($30–$50 starting range for reels, 24–48h turnaround, 3–5 days for long form, booking at https://cal.com/sangam-singh/30min).",
+    "5. Conversational Follow-ups: If the user provides a follow-up answer, connect it seamlessly to earlier conversation history.",
+    "",
+    "STRICT FORMATTING RULE (RULE 1.1):",
+    "ABSOLUTELY NO BULLET POINTS (- or *).",
+    "Never use markdown bullet points in your response.",
+    "Instead, format all lists and points using numbered lists (1., 2., 3.), bracketed labels [1], [2], bold headings, or clean paragraphs.",
+    "",
+    "TONE & STYLE:",
+    "Be concise, articulate, and natural. Keep responses punchy and avoid long walls of unsolicited text. Never say 'As an AI...' or 'I am just a chatbot'. Answer directly with confidence and authority."
+  ].join('\n');
+
+  // Start fresh from zero on load or refresh
   function loadHistoryFromStorage() {
-    try {
-      var saved = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        var parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          conversationHistory = parsed;
-          return true;
-        }
-      }
-    } catch (e) {}
     return false;
   }
 
   function saveHistoryToStorage() {
-    try {
-      var json = JSON.stringify(conversationHistory);
-      localStorage.setItem(STORAGE_KEY, json);
-      sessionStorage.setItem(STORAGE_KEY, json);
-    } catch (e) {}
+    // Intentionally no-op: chat history always resets to zero upon page reload
   }
 
   function clearHistoryStorage() {
@@ -270,13 +299,9 @@
     resetBtn = document.getElementById('scb-reset-btn');
     suggestionDockEl = document.getElementById('scb-suggestion-dock');
 
-    // Restore conversation from sessionStorage if available
-    var hasSaved = loadHistoryFromStorage();
-    if (hasSaved) {
-      renderSavedHistory();
-    } else {
-      renderInitialState();
-    }
+    // Always start fresh from zero on load or refresh
+    conversationHistory = [];
+    renderInitialState();
 
     attachEventListeners();
   }
@@ -389,66 +414,117 @@
 
     appendMessage('user', trimmed);
     conversationHistory.push({ role: 'user', content: trimmed });
-    saveHistoryToStorage();
 
     inputEl.value = '';
     isGenerating = true;
     sendBtn.disabled = true;
 
     var typingEl = showTypingIndicator();
+    var fullResponseText = '';
+    var assistantBubble = null;
 
     try {
       var clientContext = getCurrentContext();
-      var response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: conversationHistory,
-          context: clientContext
-        })
-      });
+      var response = null;
 
-      if (!response.ok) {
-        throw new Error('HTTP ' + response.status);
+      // 1. Try local or serverless /api/chat endpoint first
+      try {
+        response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: conversationHistory,
+            context: clientContext
+          })
+        });
+        if (!response.ok) {
+          response = null;
+        }
+      } catch (endpointErr) {
+        response = null;
       }
 
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder('utf-8');
-      var fullResponseText = '';
-      var assistantBubble = null;
-      var buffer = '';
+      // 2. If /api/chat is not reachable (e.g. static hosting on Netlify), fallback directly to Inception Labs API
+      if (!response) {
+        var directMessages = [
+          { role: 'system', content: INCEPTION_SYSTEM_PROMPT }
+        ];
+        conversationHistory.forEach(function(m) {
+          directMessages.push({
+            role: m.role === 'assistant' ? 'assistant' : 'user',
+            content: m.content || ''
+          });
+        });
 
-      while (true) {
-        var result = await reader.read();
-        if (result.done) break;
+        response = await fetch(INCEPTION_CONFIG.baseUrl + '/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + INCEPTION_CONFIG.apiKey
+          },
+          body: JSON.stringify({
+            model: INCEPTION_CONFIG.model,
+            messages: directMessages,
+            stream: true,
+            temperature: 0.4
+          })
+        });
 
-        buffer += decoder.decode(result.value, { stream: true });
-        var lines = buffer.split('\n');
-        buffer = lines.pop();
+        if (!response.ok) {
+          throw new Error('Inception HTTP ' + response.status);
+        }
+      }
 
-        for (var i = 0; i < lines.length; i++) {
-          var line = lines[i].trim();
-          if (line.startsWith('data: ')) {
-            var dataPayload = line.slice(6);
-            if (dataPayload === '[DONE]') continue;
+      var contentType = (response.headers.get('content-type') || '').toLowerCase();
 
-            try {
-              var parsed = JSON.parse(dataPayload);
-              if (parsed.text) {
-                if (typingEl) {
-                  removeTypingIndicator();
-                  typingEl = null;
+      // Check if response is standard buffered JSON
+      if (contentType.includes('application/json')) {
+        var jsonData = await response.json();
+        fullResponseText = jsonData.text || (jsonData.choices && jsonData.choices[0] && jsonData.choices[0].message && jsonData.choices[0].message.content) || '';
+        if (typingEl) {
+          removeTypingIndicator();
+          typingEl = null;
+        }
+        assistantBubble = appendMessage('assistant', fullResponseText);
+      } else {
+        // SSE Stream (handles both /api/chat custom stream and Inception Labs raw stream)
+        var reader = response.body.getReader();
+        var decoder = new TextDecoder('utf-8');
+        var buffer = '';
+
+        while (true) {
+          var result = await reader.read();
+          if (result.done) break;
+
+          buffer += decoder.decode(result.value, { stream: true });
+          var lines = buffer.split('\n');
+          buffer = lines.pop();
+
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i].trim();
+            if (line.startsWith('data: ')) {
+              var dataPayload = line.slice(6);
+              if (dataPayload === '[DONE]') continue;
+
+              try {
+                var parsed = JSON.parse(dataPayload);
+                var textChunk = parsed.text || (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) || '';
+                if (textChunk) {
+                  if (typingEl) {
+                    removeTypingIndicator();
+                    typingEl = null;
+                  }
+
+                  if (!assistantBubble) {
+                    assistantBubble = appendMessage('assistant', '');
+                  }
+
+                  fullResponseText += textChunk;
+                  assistantBubble.innerHTML = parseMarkdown(fullResponseText);
+                  scrollToBottom();
                 }
-
-                if (!assistantBubble) {
-                  assistantBubble = appendMessage('assistant', '');
-                }
-
-                fullResponseText += parsed.text;
-                assistantBubble.innerHTML = parseMarkdown(fullResponseText);
-                scrollToBottom();
-              }
-            } catch (jsonErr) {}
+              } catch (jsonErr) {}
+            }
           }
         }
       }
@@ -460,10 +536,9 @@
       }
 
       conversationHistory.push({ role: 'assistant', content: fullResponseText });
-      saveHistoryToStorage();
 
     } catch (err) {
-      removeTypingIndicator();
+      if (typingEl) removeTypingIndicator();
       appendMessage('assistant', 'Something went wrong while getting that answer. Try again in a moment.');
     } finally {
       isGenerating = false;

@@ -1,5 +1,16 @@
 [build]
   publish = "."
+  functions = "netlify/functions"
 
 [build.environment]
   DISABLE_FEEDBACK_DRAWER = "true"
+
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
