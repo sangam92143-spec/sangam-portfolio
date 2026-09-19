@@ -363,15 +363,48 @@
     return bubble;
   }
 
-  var thinkingTimer = null;
-  var thinkingPhrases = [
-    'Thinking',
-    'Analyzing your project request',
-    'Evaluating video strategy',
-    'Formulating response'
-  ];
+  function getThinkingLabelForMessage(userText) {
+    if (!userText || typeof userText !== 'string') return 'Thinking';
+    var lower = userText.toLowerCase().trim();
 
-  function showThinkingIndicator() {
+    // Relevant contextual thought derived directly from the user's message
+    if (/\b(price|pricing|cost|how much|rate|quote|charge|fee|budget|dollar|\$)\b/.test(lower)) {
+      return 'Checking pricing & packages';
+    }
+    if (/\b(turnaround|delivery|how long|timeline|deadline|speed|fast)\b/.test(lower)) {
+      return 'Checking turnaround times';
+    }
+    if (/\b(book|call|meet|schedule|calendar|cal\.com|appointment)\b/.test(lower)) {
+      return 'Checking booking availability';
+    }
+    if (/\b(reel|reels|short|shorts|tiktok|tiktoks|viral)\b/.test(lower)) {
+      return 'Reviewing short-form specs';
+    }
+    if (/\b(podcast|podcasts|youtube|long form|documentary|vlog|episode)\b/.test(lower)) {
+      return 'Analyzing long-form video editing';
+    }
+    if (/\b(ai|automation|agent|agents|workflow|system|pipeline)\b/.test(lower)) {
+      return 'Analyzing AI automation workflows';
+    }
+    if (/\b(motion|graphics|animation|animating|after effects|typography|vfx)\b/.test(lower)) {
+      return 'Reviewing motion design';
+    }
+    if (/\b(code|coding|python|javascript|script|html|css|developer|program)\b/.test(lower)) {
+      return 'Formulating code solution';
+    }
+    if (/\b(portfolio|work|samples|example|showreel|client)\b/.test(lower)) {
+      return 'Retrieving portfolio highlights';
+    }
+    if (/\b(contact|email|whatsapp|reach|hire|phone)\b/.test(lower)) {
+      return 'Pulling contact details';
+    }
+
+    // Universal clean default (no fake assumptions)
+    return 'Thinking';
+  }
+
+  function showThinkingIndicator(userText) {
+    var labelText = getThinkingLabelForMessage(userText);
     var row = document.createElement('div');
     row.className = 'scb-message-row is-assistant scb-thinking-row';
     row.id = 'scb-thinking-indicator';
@@ -379,7 +412,7 @@
       '<div class="scb-msg-avatar">' + AVATAR_IMG_HTML + '</div>',
       '<div class="scb-thinking-pill">',
       '  <span class="scb-thinking-spark">✦</span>',
-      '  <span class="scb-thinking-label" id="scb-thinking-label">Thinking</span>',
+      '  <span class="scb-thinking-label">' + labelText + '</span>',
       '  <span class="scb-thinking-dots"><span>.</span><span>.</span><span>.</span></span>',
       '  <div class="scb-thinking-shimmer"></div>',
       '</div>'
@@ -387,24 +420,10 @@
 
     messagesEl.appendChild(row);
     scrollToBottom();
-
-    var phraseIndex = 0;
-    thinkingTimer = setInterval(function() {
-      var labelEl = document.getElementById('scb-thinking-label');
-      if (labelEl) {
-        phraseIndex = (phraseIndex + 1) % thinkingPhrases.length;
-        labelEl.textContent = thinkingPhrases[phraseIndex];
-      }
-    }, 1100);
-
     return row;
   }
 
   function removeThinkingIndicator() {
-    if (thinkingTimer) {
-      clearInterval(thinkingTimer);
-      thinkingTimer = null;
-    }
     var row = document.getElementById('scb-thinking-indicator');
     if (row) row.remove();
   }
@@ -475,7 +494,7 @@
     sendBtn.disabled = true;
 
     var startTime = Date.now();
-    var thinkingEl = showThinkingIndicator();
+    var thinkingEl = showThinkingIndicator(trimmed);
     var fullResponseText = '';
     var assistantBubble = null;
 
