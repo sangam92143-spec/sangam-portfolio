@@ -1613,6 +1613,9 @@ a[href*="framer.com"] {
 
   // Intercept form submissions on contact page to route to WhatsApp
   function handleFormSubmit(e) {
+    if (!e.target || e.target.id === 'scb-form' || (e.target.closest && e.target.closest('#sangam-chatbot-root'))) {
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
 
@@ -1649,8 +1652,9 @@ a[href*="framer.com"] {
   }
 
   function attachFormListener() {
-    var forms = document.querySelectorAll('form.framer-qzjgoc, form');
+    var forms = document.querySelectorAll('form.framer-qzjgoc, form:not(#scb-form)');
     forms.forEach(function(form) {
+      if (form.id === 'scb-form' || (form.closest && form.closest('#sangam-chatbot-root'))) return;
       if (!form.dataset.waAttached) {
         form.dataset.waAttached = 'true';
         form.addEventListener('submit', handleFormSubmit);

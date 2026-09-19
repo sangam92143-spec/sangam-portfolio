@@ -261,7 +261,7 @@
       '',
       '  <!-- Modern Floating Pill Input Bar (Matching Reference) -->',
       '  <div class="scb-footer-wrap">',
-      '    <form class="scb-input-pill-bar" id="scb-form">',
+      '    <div class="scb-input-pill-bar" id="scb-form">',
       '      <button type="button" class="scb-input-action-btn" id="scb-plus-btn" aria-label="Add attachment" title="Creative prompts">',
       '        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
       '          <line x1="12" y1="5" x2="12" y2="19"></line>',
@@ -275,14 +275,14 @@
       '            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>',
       '          </svg>',
       '        </button>',
-      '        <button type="submit" class="scb-send-btn" id="scb-send-btn" aria-label="Send message">',
+      '        <button type="button" class="scb-send-btn" id="scb-send-btn" aria-label="Send message">',
       '          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
       '            <line x1="5" y1="12" x2="19" y2="12"></line>',
       '            <polyline points="12 5 19 12 12 19"></polyline>',
       '          </svg>',
       '        </button>',
       '      </div>',
-      '    </form>',
+      '    </div>',
       '  </div>',
       '</div>'
     ].join('\n');
@@ -363,20 +363,75 @@
     return bubble;
   }
 
-  function showTypingIndicator() {
-    var typingEl = document.createElement('div');
-    typingEl.className = 'scb-message-row is-assistant scb-typing-row';
-    typingEl.id = 'scb-typing-indicator';
-    typingEl.innerHTML = '<div class="scb-msg-avatar">' + AVATAR_IMG_HTML + '</div>' +
-      '<div class="scb-bubble scb-typing-bubble"><span class="scb-typing-dot"></span><span class="scb-typing-dot"></span><span class="scb-typing-dot"></span></div>';
-    messagesEl.appendChild(typingEl);
+  var thinkingTimer = null;
+  var thinkingPhrases = [
+    'Thinking',
+    'Analyzing your project request',
+    'Evaluating video strategy',
+    'Formulating response'
+  ];
+
+  function showThinkingIndicator() {
+    var row = document.createElement('div');
+    row.className = 'scb-message-row is-assistant scb-thinking-row';
+    row.id = 'scb-thinking-indicator';
+    row.innerHTML = [
+      '<div class="scb-msg-avatar">' + AVATAR_IMG_HTML + '</div>',
+      '<div class="scb-thinking-pill">',
+      '  <span class="scb-thinking-spark">✦</span>',
+      '  <span class="scb-thinking-label" id="scb-thinking-label">Thinking</span>',
+      '  <span class="scb-thinking-dots"><span>.</span><span>.</span><span>.</span></span>',
+      '  <div class="scb-thinking-shimmer"></div>',
+      '</div>'
+    ].join('\n');
+
+    messagesEl.appendChild(row);
     scrollToBottom();
-    return typingEl;
+
+    var phraseIndex = 0;
+    thinkingTimer = setInterval(function() {
+      var labelEl = document.getElementById('scb-thinking-label');
+      if (labelEl) {
+        phraseIndex = (phraseIndex + 1) % thinkingPhrases.length;
+        labelEl.textContent = thinkingPhrases[phraseIndex];
+      }
+    }, 1100);
+
+    return row;
   }
 
-  function removeTypingIndicator() {
-    var typingEl = document.getElementById('scb-typing-indicator');
-    if (typingEl) typingEl.remove();
+  function removeThinkingIndicator() {
+    if (thinkingTimer) {
+      clearInterval(thinkingTimer);
+      thinkingTimer = null;
+    }
+    var row = document.getElementById('scb-thinking-indicator');
+    if (row) row.remove();
+  }
+
+  // Smooth word-by-word streaming typewriter with glowing purple cursor
+  async function streamWordByWord(bubble, fullText, typingSpeedMs) {
+    var speed = typeof typingSpeedMs === 'number' ? typingSpeedMs : 22;
+    var tokens = fullText.match(/\S+|\s+/g) || [fullText];
+    var displayed = '';
+
+    for (var i = 0; i < tokens.length; i++) {
+      displayed += tokens[i];
+      bubble.innerHTML = parseMarkdown(displayed) + '<span class="scb-typing-cursor"></span>';
+      scrollToBottom();
+
+      var delay = speed;
+      var trimmed = tokens[i].trim();
+      if (/[.!?]$/.test(trimmed)) {
+        delay = 45;
+      } else if (/[,;:]$/.test(trimmed)) {
+        delay = 30;
+      }
+      await new Promise(function(r) { setTimeout(r, delay); });
+    }
+
+    bubble.innerHTML = parseMarkdown(displayed);
+    scrollToBottom();
   }
 
   function getCurrentContext() {
@@ -419,7 +474,8 @@
     isGenerating = true;
     sendBtn.disabled = true;
 
-    var typingEl = showTypingIndicator();
+    var startTime = Date.now();
+    var thinkingEl = showThinkingIndicator();
     var fullResponseText = '';
     var assistantBubble = null;
 
@@ -481,11 +537,6 @@
       if (contentType.includes('application/json')) {
         var jsonData = await response.json();
         fullResponseText = jsonData.text || (jsonData.choices && jsonData.choices[0] && jsonData.choices[0].message && jsonData.choices[0].message.content) || '';
-        if (typingEl) {
-          removeTypingIndicator();
-          typingEl = null;
-        }
-        assistantBubble = appendMessage('assistant', fullResponseText);
       } else {
         // SSE Stream (handles both /api/chat custom stream and Inception Labs raw stream)
         var reader = response.body.getReader();
@@ -510,18 +561,7 @@
                 var parsed = JSON.parse(dataPayload);
                 var textChunk = parsed.text || (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) || '';
                 if (textChunk) {
-                  if (typingEl) {
-                    removeTypingIndicator();
-                    typingEl = null;
-                  }
-
-                  if (!assistantBubble) {
-                    assistantBubble = appendMessage('assistant', '');
-                  }
-
                   fullResponseText += textChunk;
-                  assistantBubble.innerHTML = parseMarkdown(fullResponseText);
-                  scrollToBottom();
                 }
               } catch (jsonErr) {}
             }
@@ -529,16 +569,26 @@
         }
       }
 
-      if (!assistantBubble) {
-        removeTypingIndicator();
-        assistantBubble = appendMessage('assistant', 'Something went wrong while getting that answer. Try again in a moment.');
+      if (!fullResponseText || fullResponseText.trim().length === 0) {
         fullResponseText = 'Something went wrong while getting that answer. Try again in a moment.';
       }
+
+      // 3. Enforce realistic 2.8s-3.5s thinking time ("tu think krne ka show kar 3-4 sec without kuch bole")
+      var minThinkingTime = 2800;
+      var elapsed = Date.now() - startTime;
+      if (elapsed < minThinkingTime) {
+        await new Promise(function(r) { setTimeout(r, minThinkingTime - elapsed); });
+      }
+
+      // 4. Remove thinking indicator and stream response word by word
+      removeThinkingIndicator();
+      assistantBubble = appendMessage('assistant', '');
+      await streamWordByWord(assistantBubble, fullResponseText, 22);
 
       conversationHistory.push({ role: 'assistant', content: fullResponseText });
 
     } catch (err) {
-      if (typingEl) removeTypingIndicator();
+      removeThinkingIndicator();
       appendMessage('assistant', 'Something went wrong while getting that answer. Try again in a moment.');
     } finally {
       isGenerating = false;
@@ -552,11 +602,32 @@
     closeBtn.addEventListener('click', closeChatbox);
     resetBtn.addEventListener('click', clearHistoryStorage);
 
-    var formEl = document.getElementById('scb-form');
-    formEl.addEventListener('submit', function(e) {
+    // Prevent any form submission / WhatsApp redirection on Enter key or Send button click
+    inputEl.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        sendMessage(inputEl.value);
+      }
+    });
+
+    sendBtn.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
       sendMessage(inputEl.value);
     });
+
+    var formEl = document.getElementById('scb-form');
+    if (formEl) {
+      formEl.addEventListener('submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        sendMessage(inputEl.value);
+      }, true);
+    }
 
     // Handle suggestion pills click
     rootEl.addEventListener('click', function(e) {
