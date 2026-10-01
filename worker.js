@@ -123,7 +123,15 @@ export default {
       return handleChat(request, env);
     }
     if (env.ASSETS) {
-      return env.ASSETS.fetch(request);
+      const response = await env.ASSETS.fetch(request);
+      if (response.status === 404) {
+        const notFoundRes = await env.ASSETS.fetch(new Request(new URL('/404.html', request.url)));
+        return new Response(notFoundRes.body, {
+          status: 404,
+          headers: notFoundRes.headers
+        });
+      }
+      return response;
     }
     return new Response('Not Found', { status: 404 });
   }
