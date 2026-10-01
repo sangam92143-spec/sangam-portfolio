@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Sangam Singh - Video Editing Portfolio",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "echo 'Build complete'",
+    "deploy": "wrangler deploy"
   }
 }
