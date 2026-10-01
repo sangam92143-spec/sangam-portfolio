@@ -1909,5 +1909,89 @@
     "user": "What is the weather today?",
     "assistant": "The current weather in Calcutta, India is 34°C (93°F) with a light rain shower. The humidity is 56%.",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU6WHIIW-AXAN",
+    "timestamp": "2026-09-18T11:54:02.120Z",
+    "user": "What services do you offer?",
+    "assistant": "Sangam Singh provides several key services:\n\n1.  **AI Automation & Content Systems**: This includes designing and deploying autonomous AI agents, automated video repurposing pipelines, and intelligent creator tools.\n2.  **Short-Form Video Production**: Creating viral Reels, TikToks, and YouTube Shorts, with a quick 24–48 hour turnaround.\n3.  **Long-Form Video Production**: Producing comprehensive YouTube essays, podcasts, and documentaries, typically within 3–5 business days.\n4.  **Motion Graphics**: Developing custom 2D/3D animations, UI animations, and title cards using industry-standard software.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU6WHNK4-FL6Z",
+    "timestamp": "2026-09-18T11:54:08.644Z",
+    "user": "What is your typical turnaround time?",
+    "assistant": "The typical turnaround time depends on the type of service:\n\n1.  For **Short-Form Video Production** (Reels, TikToks, YouTube Shorts), the turnaround is usually 24–48 hours.\n2.  For **Long-Form Video Production** (YouTube essays, podcasts, documentaries), it's typically 3–5 business days.\n\nFor AI automation or custom motion graphics projects, the timeline would be discussed during the strategy call, as it depends on the specific scope.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU6WHZBK-CP79",
+    "timestamp": "2026-09-18T11:54:23.888Z",
+    "user": "fuck",
+    "assistant": "I understand. If you have any questions or need assistance with anything related to Sangam Singh's services, such as video editing, motion graphics, or AI automation, please feel free to ask. I'm here to help.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU6WI5NH-4KSW",
+    "timestamp": "2026-09-18T11:54:32.093Z",
+    "user": "fuck",
+    "assistant": "I'm here to assist you with any questions you might have about Sangam Singh's work, whether it's about video editing, motion graphics, AI automation, or anything else. Just let me know how I can help.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU84I4D4-5KN6",
+    "timestamp": "2026-09-19T08:26:13.528Z",
+    "user": "What services do you offer?",
+    "assistant": "\n\nI offer four main services tailored for creators and businesses:\n\n1. AI Automation & Content Systems: I design autonomous agents and automated media workflows to streamline your content pipelines.\n2. Short-Form Video Production: High-retention Reels, TikToks, and Shorts with a 24–48 hour turnaround.\n3. Long-Form Video Production: End-to-end YouTube essays, podcasts, and documentaries delivered in 3–5 business days.\n4. Motion Graphics: Custom 2D/3D animations, UI motion, and title cards using Premiere Pro, After Effects, and DaVinci Resolve.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU84KVOL-7CPM",
+    "timestamp": "2026-09-19T08:28:22.245Z",
+    "user": "What services do you offer?",
+    "assistant": "\n\nI specialize in four core areas to help creators and businesses scale their content and workflows:\n\n1. AI Automation & Content Systems: I build autonomous AI agents and automated video repurposing pipelines to streamline media operations.\n2. Short-Form Video Production: High-retention Reels, TikToks, and Shorts with a 24–48 hour turnaround starting around $30–$50.\n3. Long-Form Video Production: End-to-end YouTube essays, podcasts, and documentaries delivered in 3–5 business days.\n4. Motion Graphics: Custom 2D/3D animations, UI animations, and title cards using industry-standard tools like After Effects and Premiere Pro.\n\nIf you would like to discuss a specific project, you can book a 30-minute strategy call at cal.com/sangam-singh/30min.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU84LDOL-UCA7",
+    "timestamp": "2026-09-19T08:28:45.573Z",
+    "user": "What services do you offer?",
+    "assistant": "\n\nI specialize in four core areas designed to scale your content and automate workflows:\n\n1. **AI Automation & Content Systems:** I build autonomous AI agents, automated video repurposing pipelines, and intelligent creator tools for businesses and creators.\n2. **Short-Form Video Production:** Viral Reels, TikToks, and YouTube Shorts engineered for high retention with 24–48 hour turnaround.\n3. **Long-Form Video Production:** End-to-end YouTube essays, podcasts, and documentaries delivered in 3–5 business days.\n4. **Motion Graphics:** Custom 2D/3D animations, UI animations, and title cards using Premiere Pro, After Effects, and DaVinci Resolve.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU84LSP3-O3T5",
+    "timestamp": "2026-09-19T08:29:05.031Z",
+    "user": "Hi",
+    "assistant": "\n\nHello! Welcome to Sangam Singh's official site. I'm here to help you explore his work in AI automation, video production, and motion graphics.\n\nWhether you're looking to build autonomous agents, edit short-form content, or discuss a custom project, feel free to ask away. What would you like to dive into today?",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU84Q4YI-KE88",
+    "timestamp": "2026-09-19T08:32:27.546Z",
+    "user": "Hi",
+    "assistant": "\n\nHello! Welcome to Sangam Singh's official website.\n\nI'm here to help you explore his work in AI automation, content systems, and video production. Whether you're interested in building autonomous agents, creating viral short-form content, or need assistance with general topics, feel free to ask.\n\nWhat would you like to discuss today?",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU84U9TR-MWEL",
+    "timestamp": "2026-09-19T08:35:40.479Z",
+    "user": "Hi",
+    "assistant": "\n\nHello! I’m the assistant for Sangam Singh. Whether you’re looking to discuss AI automation, video production, motion graphics, or just have a general question, I’m here to help. What would you like to explore today?",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU8562FD-FBHM",
+    "timestamp": "2026-09-19T08:44:50.761Z",
+    "user": "What services do you offer?",
+    "assistant": "\n\nI specialize in four core areas that help creators and businesses scale their content and operations:\n\n1. AI Automation & Content Systems: Designing autonomous AI agents and automated video repurposing pipelines.\n2. Short-Form Video Production: Viral reels, TikToks, and YouTube Shorts engineered for high retention.\n3. Long-Form Video Production: End-to-end YouTube essays, podcasts, and documentaries.\n4. Motion Graphics: Custom 2D/3D animations, UI animations, and title cards.\n\nStarting rates for short-form content begin around $30–$50 with a 24–48 hour turnaround. If you are interested in long-form or automation, let me know and I can share more details.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MU8571FZ-RDX8",
+    "timestamp": "2026-09-19T08:45:36.143Z",
+    "user": "Can you edit a podcast?",
+    "assistant": "\n\nYes, absolutely. End-to-end podcast editing is part of the long-form video production services offered. This covers full post-production for podcasts, YouTube essays, and documentaries with a standard turnaround of 3 to 5 business days. The team uses Premiere Pro, After Effects, and DaVinci Resolve to ensure high-quality output. You can book a 30-minute strategy call to discuss your project at https://cal.com/sangam-singh/30min or reach out via email at sangam.work9@gmail.com.",
+    "ip": "127.0.0.1"
   }
 ]
