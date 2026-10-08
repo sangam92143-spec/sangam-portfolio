@@ -95,7 +95,7 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
+  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost:3000'}`);
   let reqPath = decodeURIComponent(parsedUrl.pathname);
 
   // Enable CORS
@@ -147,8 +147,8 @@ const server = http.createServer((req, res) => {
 
   // 1. GET /api/booking/availability?date=YYYY-MM-DD&timezone=...
   if (reqPath === '/api/booking/availability' && req.method === 'GET') {
-    const queryDate = parsedUrl.query.date;
-    const timezone = parsedUrl.query.timezone || 'Asia/Kolkata';
+    const queryDate = parsedUrl.searchParams.get('date');
+    const timezone = parsedUrl.searchParams.get('timezone') || 'Asia/Kolkata';
 
     if (!queryDate || !/^\d{4}-\d{2}-\d{2}$/.test(queryDate)) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
