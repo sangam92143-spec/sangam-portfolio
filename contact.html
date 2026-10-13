@@ -1153,6 +1153,8 @@ a[href*="framer.com"] {
     }
   };
 
+  window.handleNavNavigation = window.handleMobileNavClick;
+
   function scrollToSectionTarget(sectionName) {
     var target = null;
 
@@ -1379,123 +1381,6 @@ a[href*="framer.com"] {
 
 
 
-<script data-contact-cards-controller>
-(function() {
-  function handleFormSubmit(e) {
-    if (e) e.preventDefault();
-
-    var form = e ? e.target : document.querySelector('form.framer-qzjgoc, form');
-    if (!form) return;
-
-    var inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
-    var textarea = form.querySelector('textarea');
-
-    var firstName = '';
-    var lastName = '';
-    var email = '';
-    var phone = '';
-    var message = textarea ? textarea.value.trim() : '';
-
-    // Collect values by input position/type/placeholder
-    inputs.forEach(function(input) {
-      var ph = (input.getAttribute('placeholder') || '').toLowerCase();
-      var val = input.value.trim();
-      if (ph.includes('jane') && !ph.includes('@')) {
-        firstName = val;
-      } else if (ph.includes('smith')) {
-        lastName = val;
-      } else if (input.type === 'email' || ph.includes('@')) {
-        email = val;
-      } else if (input.type === 'tel' || ph.includes('819') || ph.includes('+') || ph.includes('phone')) {
-        phone = val;
-      }
-    });
-
-    var fullName = (firstName + ' ' + lastName).trim() || 'Website Visitor';
-    
-    var msgLines = [
-      'Hi Sangam, I loved your portfolio and I want to work with you!',
-      '',
-      '👤 *Name:* ' + fullName
-    ];
-
-    if (email) msgLines.push('📧 *Email:* ' + email);
-    if (phone) msgLines.push('📞 *Phone:* ' + phone);
-    if (message) {
-      msgLines.push('');
-      msgLines.push('💬 *Message:*');
-      msgLines.push(message);
-    }
-
-    var fullText = msgLines.join('\n');
-    var waUrl = 'https://wa.me/916289928084?text=' + encodeURIComponent(fullText);
-
-    window.open(waUrl, '_blank');
-  }
-
-  function setupContactPage() {
-    var emailLink = "mailto:sangam.work9@gmail.com?subject=Project%20Inquiry%20-%20Video%20Editing&body=Hi%20Sangam,%0A%0AI%20loved%20your%20portfolio%20and%20I%20want%20to%20work%20with%20you!%0A%0ALooking%20forward%20to%20hearing%20from%20you.";
-    var waLink = "https://wa.me/916289928084?text=Hi%20Sangam%2C%20I%20loved%20your%20portfolio%20and%20I%20want%20to%20work%20with%20you%21";
-
-    // Update Email Card
-    var emailCard = document.querySelector('[data-framer-name="Email"], .framer-15a1yuw, a[href*="mailto:"]');
-    if (emailCard) {
-      if (emailCard.getAttribute('href') !== emailLink) {
-        emailCard.setAttribute('href', emailLink);
-        emailCard.setAttribute('target', '_blank');
-        emailCard.setAttribute('rel', 'noopener noreferrer');
-      }
-      var emailText = emailCard.querySelector('[data-framer-name="Email address"] p, .framer-18ytxkw p');
-      if (emailText && emailText.textContent !== 'sangam.work9@gmail.com') {
-        emailText.textContent = 'sangam.work9@gmail.com';
-      }
-    }
-
-    // Update Phone Card
-    var phoneCard = document.querySelector('[data-framer-name="Phone"], .framer-1n2439y, a[href*="tel:"], a[href*="wa.me"]');
-    if (phoneCard) {
-      if (phoneCard.getAttribute('href') !== waLink) {
-        phoneCard.setAttribute('href', waLink);
-        phoneCard.setAttribute('target', '_blank');
-        phoneCard.setAttribute('rel', 'noopener noreferrer');
-      }
-      var phoneText = phoneCard.querySelector('[data-framer-name="Number"] p, .framer-1orge6n p');
-      if (phoneText && phoneText.textContent !== '+91 6289928084') {
-        phoneText.textContent = '+91 6289928084';
-      }
-    }
-
-    // Update Submit Button Text to "Send Message"
-    var submitBtns = document.querySelectorAll('form button[type="submit"], .framer-bby5ym-container button');
-    submitBtns.forEach(function(btn) {
-      var p = btn.querySelector('p');
-      if (p && p.textContent !== 'Send Message') {
-        p.textContent = 'Send Message';
-      }
-    });
-
-    // Attach form submit listener
-    var forms = document.querySelectorAll('form.framer-qzjgoc, form');
-    forms.forEach(function(form) {
-      if (!form.dataset.waAttached) {
-        form.dataset.waAttached = 'true';
-        form.addEventListener('submit', handleFormSubmit);
-      }
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupContactPage);
-  } else {
-    setupContactPage();
-  }
-  window.addEventListener('load', setupContactPage);
-
-  var obs = new MutationObserver(setupContactPage);
-  obs.observe(document.documentElement, { childList: true, subtree: true });
-})();
-</script>
-
 <script src="/public/chatbot.js" defer></script>
 
 <script id="contact-guardian">
@@ -1503,6 +1388,13 @@ a[href*="framer.com"] {
   function enforceSangamContact() {
     // Only run if contact card elements or on /contact route
     var isContactRoute = window.location.pathname.includes('/contact');
+    var submitBtns = document.querySelectorAll('form button[type="submit"], .framer-bby5ym-container button');
+    submitBtns.forEach(function(btn) {
+      var p = btn.querySelector('p');
+      if (p && p.textContent !== 'Send Message') {
+        p.textContent = 'Send Message';
+      }
+    });
     var emailCard = document.querySelector('[data-framer-name="Email"], .framer-15a1yuw, a[href*="mailto:"]');
     var phoneCard = document.querySelector('[data-framer-name="Phone"], .framer-1n2439y, a[href*="tel:"], a[href*="wa.me"]');
     

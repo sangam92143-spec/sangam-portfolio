@@ -1993,5 +1993,19 @@
     "user": "Can you edit a podcast?",
     "assistant": "\n\nYes, absolutely. End-to-end podcast editing is part of the long-form video production services offered. This covers full post-production for podcasts, YouTube essays, and documentaries with a standard turnaround of 3 to 5 business days. The team uses Premiere Pro, After Effects, and DaVinci Resolve to ensure high-quality output. You can book a 30-minute strategy call to discuss your project at https://cal.com/sangam-singh/30min or reach out via email at sangam.work9@gmail.com.",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MV70GWZE-F417",
+    "timestamp": "2026-10-13T18:25:15.002Z",
+    "user": "What services do you offer?",
+    "assistant": "\n\nI specialize in four key areas to help creators and businesses scale:\n\n1. **AI Automation & Content Systems:** Building autonomous agents and automated video pipelines.\n2. **Short-Form Video Production:** Viral Reels, TikToks, and Shorts with fast turnaround.\n3. **Long-Form Video Production:** End-to-end YouTube essays, podcasts, and documentaries.\n4. **Motion Graphics:** Custom 2D/3D animations and title cards.",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": "LOG-MV70K7XC-H1JO",
+    "timestamp": "2026-10-13T18:27:49.152Z",
+    "user": "Tell me about Sangam",
+    "assistant": "\n\nSangam Singh is a Creative Operator and AI Automation Specialist focused on scaling content systems for businesses and creators. He designs autonomous AI agents and automated video pipelines to streamline workflows.\n\nHis core expertise spans four key areas:\n\n1. AI Automation and Content Systems\n2. Short-Form Video Production with 24 to 48 hour turnarounds\n3. Long-Form Video Production for YouTube and podcasts\n4. Custom Motion Graphics using After Effects and DaVinci Resolve\n\nWith a track record of delivering over 600 videos and generating 90 million views, 50 plus businesses trust his work. You can book a strategy call or contact him directly via email and WhatsApp to get started.",
+    "ip": "127.0.0.1"
   }
 ]

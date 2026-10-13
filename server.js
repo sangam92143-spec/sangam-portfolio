@@ -317,6 +317,10 @@ const server = http.createServer((req, res) => {
       filePath = publicPath;
     } else if (fs.existsSync(filePath + '.html')) {
       filePath = filePath + '.html';
+    } else if (path.extname(reqPath)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('404 Not Found');
+      return;
     } else {
       filePath = path.join(ROOT, 'index.html');
     }

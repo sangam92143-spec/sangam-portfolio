@@ -2573,6 +2573,14 @@ a[href*="framer.com"] {
 
       if (playBtn) playBtn.style.display = 'none';
       if (thumb) thumb.style.display = 'none';
+
+      var closeBtn = iframeWrap.querySelector('.reel-close-video-btn');
+      if (closeBtn) {
+        closeBtn.onclick = function(e) {
+          e.stopPropagation();
+          resetActiveIframes();
+        };
+      }
     }
   }
 
@@ -2592,6 +2600,7 @@ a[href*="framer.com"] {
       if (thumb) thumb.style.display = 'block';
     }
   }
+  window.resetActiveIframes = resetActiveIframes;
 
   // Real-Time Touch Drag & Mouse Swipe Physics + Multi-Step Scroll
   function attachSwipeAndDragEvents() {
@@ -2891,6 +2900,7 @@ a[href*="framer.com"] {
       window.location.href = '/?section=' + sectionOrPage;
     }
   };
+  window.handleNavNavigation = window.handleMobileNavClick;
 
   function scrollToSectionTarget(sectionName) {
     var target = null;
